@@ -14,7 +14,7 @@ from .schemas import (
     ProductDetail,
     ProductListItem,
 )
-from .seed import seed_if_empty
+from .seed import seed_data, seed_if_empty
 
 
 @asynccontextmanager
@@ -22,7 +22,7 @@ async def lifespan(_: FastAPI):
     ensure_database()
     Base.metadata.create_all(engine)
     with SessionLocal() as db:
-        seed_if_empty(db)
+        seed_data(db, force_refresh=True)
     yield
 
 

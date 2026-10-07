@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr">
       <body>
         <CompareProvider>
-          <div className="bg-amber-100 px-4 py-2 text-center text-xs text-amber-900">
-            Bu sürümde gösterilen bankalar ve veriler <strong>örnek (demo) verilerdir</strong>; gerçek ürün, oran veya koşul değildir.
+          <div className="bg-emerald-50 border-b border-emerald-200/60 px-4 py-2 text-center text-xs text-emerald-900">
+            Platformdaki ürünler <strong>Albaraka Türk Katılım Bankası ve Albaraka Portföy</strong> resmî ürün ve hizmetlerine dayanmaktadır.
           </div>
           <header className="border-b border-slate-200 bg-white">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
