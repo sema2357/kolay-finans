@@ -30,6 +30,7 @@ class CategoryOut(_ORM):
     name: str
     description: str
     icon: str
+    flow_steps: list[FlowStep] = []
     product_count: int = 0
 
 

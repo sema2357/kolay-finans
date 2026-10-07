@@ -7,6 +7,7 @@ export type Category = {
   name: string;
   description: string;
   icon: string;
+  flow_steps?: FlowStep[];
   product_count: number;
   key_risks?: string[];
 };

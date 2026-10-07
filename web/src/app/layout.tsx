@@ -19,19 +19,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Bu sürümde gösterilen bankalar ve veriler <strong>örnek (demo) verilerdir</strong>; gerçek ürün, oran veya koşul değildir.
           </div>
           <header className="border-b border-slate-200 bg-white">
-            <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+            <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
               <Link href="/" className="text-lg font-bold text-brand-700">
                 Kolay Finans
               </Link>
-              <nav className="flex gap-5 text-sm text-slate-600">
-                <Link href="/degerlendir" className="hover:text-brand-700">Paramı Değerlendir</Link>
+              <nav className="flex gap-5 text-sm font-medium text-slate-600">
+                <Link href="/degerlendir" className="text-brand-700 hover:text-brand-800">Paramı Değerlendir</Link>
                 <Link href="/finansman" className="hover:text-brand-700">Finansman</Link>
               </nav>
             </div>
           </header>
-          <main className="mx-auto max-w-5xl px-4 py-8 pb-28">{children}</main>
+          <main className="mx-auto max-w-6xl px-4 py-8 pb-28">{children}</main>
           <footer className="border-t border-slate-200 bg-white">
-            <div className="mx-auto max-w-5xl px-4 py-6 text-xs text-slate-500">
+            <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500">
               Bu platform yatırım tavsiyesi vermez, finansman onayı veya kesin ödeme sözü oluşturmaz. Ürünlerin
               işleyişini anlatan bir keşif ve karşılaştırma aracıdır. Güncel ve bağlayıcı koşullar için bankanın resmî
               kaynaklarına başvurunuz.
