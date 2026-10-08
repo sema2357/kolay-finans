@@ -34,6 +34,16 @@ export function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("tr-TR");
 }
 
+export function formatDateTime(iso: string) {
+  return new Date(iso).toLocaleString("tr-TR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 export function one(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }

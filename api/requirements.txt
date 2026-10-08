@@ -3,3 +3,7 @@ uvicorn[standard]>=0.30
 sqlalchemy>=2.0
 pymssql>=2.3
 pydantic>=2.8
+httpx>=0.27.0
+apscheduler>=3.10.4
+beautifulsoup4>=4.12.3
+tefas-client>=0.3.0

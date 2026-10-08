@@ -14,7 +14,19 @@ from .schemas import (
     ProductDetail,
     ProductListItem,
 )
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+
 from .seed import seed_data, seed_if_empty
+from .sync import sync_all_products
+
+scheduler = AsyncIOScheduler()
+
+
+async def scheduled_sync():
+    """Günde 2 kez (09:30 ve 19:00) çalışan otomatik güncelleme."""
+    with SessionLocal() as db:
+        await sync_all_products(db)
 
 
 @asynccontextmanager
@@ -23,7 +35,17 @@ async def lifespan(_: FastAPI):
     Base.metadata.create_all(engine)
     with SessionLocal() as db:
         seed_data(db, force_refresh=True)
+        # Başlangıçta hemen ilk canlı senkronizasyonu çalıştır
+        await sync_all_products(db)
+
+    # Günde 2 kez planlama: Sabah 09:30 (oranlar) & Akşam 19:00 (TEFAS gün sonu)
+    scheduler.add_job(scheduled_sync, CronTrigger(hour=9, minute=30), id="morning_sync")
+    scheduler.add_job(scheduled_sync, CronTrigger(hour=19, minute=0), id="evening_sync")
+    scheduler.start()
+
     yield
+
+    scheduler.shutdown()
 
 
 app = FastAPI(title="Kolay Finans API", version="0.1.0", lifespan=lifespan)
@@ -54,6 +76,13 @@ def _detail(p: Product) -> ProductDetail:
 @app.get("/api/health")
 def health():
     return {"status": "ok"}
+
+
+@app.post("/api/sync")
+async def trigger_sync(db: Session = Depends(get_db)):
+    """Manuel veya webhook ile canlı veri senkronizasyonunu tetikler."""
+    res = await sync_all_products(db)
+    return res
 
 
 @app.get("/api/banks", response_model=list[BankOut])

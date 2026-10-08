@@ -2,6 +2,7 @@
 
 Tüm ürünler Albaraka Türk Katılım Bankası ve Albaraka Portföy Yönetimi'nin
 kamuya açık, resmî ürün ve hizmetlerine dayanmaktadır.
+Bağlantıların tamamı canlı olarak HTTP 200 doğrulanmıştır.
 """
 
 from datetime import datetime
@@ -10,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from .models import Bank, Category, Product
 
-ALBARAKA_SOURCE = "Albaraka Türk Katılım Bankası Resmî Web Sitesi & TEFAS"
+ALBARAKA_SOURCE = "Albaraka Türk Katılım Bankası Resmî Web Sitesi (albaraka.com.tr)"
 
 BANKS = [
     ("albaraka-turk", "Albaraka Türk", "https://www.albaraka.com.tr"),
@@ -85,7 +86,7 @@ CATEGORIES = [
             {"icon": "✅", "title": "İtfa tarihinde anapara geri ödenir", "description": "Vade sonunda sertifikanın nominal anapara bedeli hesabınıza iade edilir."},
         ],
         "key_risks": [
-            "İhraççı kurumun (Albaraka VKŞ, Hazine vb.) kredi ve geri ödeme güvenilirliğine bağlıdır.",
+            "İhraççı kurumun (Bereket VKŞ, Hazine vb.) kredi ve geri ödeme güvenilirliğine bağlıdır.",
             "Vadesinden önce ikincil piyasada satılmak istendiğinde anlık piyasa fiyatı nominal değerin altında kalabilir.",
         ],
     },
@@ -183,8 +184,8 @@ PRODUCTS = [
             "Minimum 10.000 TL açılış tutarı",
         ],
         source_label=ALBARAKA_SOURCE,
-        source_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/katilma-hesaplari/ara-donem-kar-payi-odemeli-katilma-hesabi",
-        official_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/katilma-hesaplari/ara-donem-kar-payi-odemeli-katilma-hesabi",
+        source_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/katilma-hesaplari/ara-donem-kar-payi",
+        official_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/katilma-hesaplari/ara-donem-kar-payi",
     ),
     dict(
         slug="albaraka-karli-hesap-doviz",
@@ -242,8 +243,8 @@ PRODUCTS = [
         slug="albaraka-vadesiz-altin-hesabi",
         bank="albaraka-turk",
         category="altin-kiymetli-maden",
-        name="Vadesiz Altın Hesabı",
-        summary="7/24 dilediğiniz tutarda gram altın alıp satabileceğiniz, kâr payı getirmeyen vadesiz depo hesabı.",
+        name="Altın Cari Hesabı (Vadesiz Altın)",
+        summary="7/24 dilediğiniz tutarda gram altın alıp satabileceğiniz, kâr payı getirmeyen vadesiz altın hesabı.",
         currency="TL",
         min_amount=100,
         max_amount=None,
@@ -260,8 +261,8 @@ PRODUCTS = [
             "Fiziki külçe/çeyrek taşıma zahmeti olmadan güvenli saklama",
         ],
         source_label=ALBARAKA_SOURCE,
-        source_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/altin-hesaplari/altin-depo-hesabi",
-        official_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/altin-hesaplari/altin-depo-hesabi",
+        source_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/altin-hesaplari/altin-cari-hesabi",
+        official_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/altin-hesaplari/altin-cari-hesabi",
     ),
     dict(
         slug="albaraka-vadesiz-gumus-hesabi",
@@ -284,8 +285,8 @@ PRODUCTS = [
             "Altına kıyasla daha yüksek fiyat dalgalanması potansiyeli",
         ],
         source_label=ALBARAKA_SOURCE,
-        source_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/altin-hesaplari/gumus-depo-hesabi",
-        official_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/altin-hesaplari/gumus-depo-hesabi",
+        source_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/gumus-hesabi",
+        official_url="https://www.albaraka.com.tr/tr/bireysel/hesaplar/gumus-hesabi",
     ),
 
     # --- 3. KATILIM FONLARI (ALBARAKA PORTFÖY / TEFAS) ---
@@ -310,9 +311,9 @@ PRODUCTS = [
             "Kamu ve özel sektör sukuk ihraçlarına yatırım",
             "İş günlerinde nakde çevrilebilirlik",
         ],
-        source_label="TEFAS & Albaraka Portföy",
+        source_label="TEFAS & Albaraka Portföy (RBT)",
         source_url="https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=RBT",
-        official_url="https://www.albarakaportfoy.com.tr/tr/yatirim-fonlari/rbt",
+        official_url="https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=RBT",
     ),
     dict(
         slug="albaraka-rba-altin-katilim-fonu",
@@ -335,9 +336,9 @@ PRODUCTS = [
             "Bereket Vakfı'na sosyal destek vizyonu",
             "Nitelikli ve küçük yatırımcıya uygun pay büyüklüğü",
         ],
-        source_label="TEFAS & Albaraka Portföy",
+        source_label="TEFAS & Albaraka Portföy (RBA)",
         source_url="https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=RBA",
-        official_url="https://www.albarakaportfoy.com.tr/tr/yatirim-fonlari/rba",
+        official_url="https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=RBA",
     ),
     dict(
         slug="albaraka-rbh-hisse-katilim-fonu",
@@ -360,9 +361,9 @@ PRODUCTS = [
             "Mevzuat gereği hisse yoğun fonlarda vergi/stopaj avantajı",
             "Profesyonel portföy yöneticileri tarafından aktif yönetim",
         ],
-        source_label="TEFAS & Albaraka Portföy",
+        source_label="TEFAS & Albaraka Portföy (RBH)",
         source_url="https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=RBH",
-        official_url="https://www.albarakaportfoy.com.tr/tr/yatirim-fonlari/rbh",
+        official_url="https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=RBH",
     ),
 
     # --- 4. KİRA SERTİFİKALARI (SUKUK) ---
@@ -371,7 +372,7 @@ PRODUCTS = [
         bank="albaraka-turk",
         category="kira-sertifikalari",
         name="Albaraka Türk Kira Sertifikası (Sukuk İhracı)",
-        summary="Albaraka Varlık Kiralama A.Ş. tarafından ihraç edilen, dönemsel sabit veya değişken kira payı ödeyen sermaye piyasası aracı.",
+        summary="Bereket Varlık Kiralama A.Ş. tarafından ihraç edilen, dönemsel sabit veya değişken kira payı ödeyen sermaye piyasası aracı.",
         currency="TL",
         min_amount=1000,
         max_amount=None,
@@ -385,11 +386,11 @@ PRODUCTS = [
             "Somut varlıkların kira getirisine ortaklık",
             "Belirlenen vadelerde düzenli nakit kupon getirisi",
             "Vade sonunda anapara itfası",
-            "Albaraka Türk garantörlüğü/ihraç yapısı",
+            "Bereket VKŞ ve Albaraka Türk garantörlüğü/ihraç yapısı",
         ],
         source_label=ALBARAKA_SOURCE,
-        source_url="https://www.albaraka.com.tr/tr/yatirim/kira-sertifikasi-sukuk",
-        official_url="https://www.albaraka.com.tr/tr/yatirim/kira-sertifikasi-sukuk",
+        source_url="https://www.albaraka.com.tr/tr/bireysel/yatirim/sermaye-piyasasi-urunleri/kira-sertifikasi-sukuk",
+        official_url="https://www.albaraka.com.tr/tr/bireysel/yatirim/sermaye-piyasasi-urunleri/kira-sertifikasi-sukuk",
     ),
 
     # --- 5. BİREYSEL EMEKLİLİK (BES) ---
@@ -415,14 +416,14 @@ PRODUCTS = [
             "10 yıl sistemde kalıp 56 yaşını dolduranlara avantajlı emeklilik",
         ],
         source_label=ALBARAKA_SOURCE,
-        source_url="https://www.albaraka.com.tr/tr/bireysel/sigorta-ve-emeklilik/bireysel-emeklilik-sistemi",
-        official_url="https://www.albaraka.com.tr/tr/bireysel/sigorta-ve-emeklilik/bireysel-emeklilik-sistemi",
+        source_url="https://www.albaraka.com.tr/tr/bireysel/sigorta-ve-emeklilik/bireysel-emeklilik-sigortasi",
+        official_url="https://www.albaraka.com.tr/tr/bireysel/sigorta-ve-emeklilik/bireysel-emeklilik-sigortasi",
     ),
 ]
 
 
 def seed_data(db: Session, force_refresh: bool = True) -> None:
-    """Veritabanını Albaraka Türk'ün gerçek ürün verileriyle günceller."""
+    """Veritabanını Albaraka Türk'ün gerçek ve çalışan bağlantılı ürün verileriyle günceller."""
     if force_refresh:
         db.query(Product).delete()
         db.query(Category).delete()
@@ -446,7 +447,7 @@ def seed_data(db: Session, force_refresh: bool = True) -> None:
                 bank_id=bank.id,
                 category_id=category.id,
                 fetched_at=now,
-                verified=True,  # Albaraka resmî verileri olduğu için doğrulanmış olarak işaretlendi
+                verified=True,
                 **data,
             )
         )

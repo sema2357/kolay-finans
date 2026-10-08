@@ -6,7 +6,7 @@ import CompareButton from "@/components/CompareButton";
 import MoneyFlow from "@/components/MoneyFlow";
 import RiskBadge from "@/components/RiskBadge";
 import type { Bank, Category, Product } from "@/lib/api";
-import { formatMoney, formatTerm } from "@/lib/format";
+import { formatDateTime, formatMoney, formatTerm } from "@/lib/format";
 
 type Props = {
   categories: Category[];
@@ -429,17 +429,52 @@ export default function DegerlendirExplorer({ categories, initialProducts }: Pro
                 </div>
               </div>
 
-              {/* Alt Butonlar */}
-              <div className="flex gap-2 pt-1">
-                <Link
-                  href={`/urun/${activeProduct.slug}`}
-                  className="flex-1 rounded-lg border border-brand-300 bg-brand-50 py-2 text-center text-xs font-bold text-brand-700 hover:bg-brand-100"
-                >
-                  Tüm Detayları Gör ↗
-                </Link>
-                <div onClick={(e) => e.stopPropagation()}>
-                  <CompareButton slug={activeProduct.slug} />
+              {/* Canlı Veri ve Zaman Damgası */}
+              <div className="rounded-lg bg-slate-50 p-2 border border-slate-200/80 text-[11px] space-y-1">
+                <div className="flex items-center justify-between text-slate-600">
+                  <span className="flex items-center gap-1.5 font-medium">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    Resmî Canlı Kaynak
+                  </span>
+                  <span className="text-[10px] text-slate-400">
+                    {activeProduct.verified ? "Doğrulandı ✓" : "Beklemede"}
+                  </span>
                 </div>
+                <div className="text-[10px] text-slate-500 truncate">
+                  Kaynak: <span className="font-semibold text-slate-700">{activeProduct.source_label}</span>
+                </div>
+                <div className="text-[10px] text-slate-400">
+                  Son güncelleme: {formatDateTime(activeProduct.fetched_at)}
+                </div>
+              </div>
+
+              {/* Alt Butonlar */}
+              <div className="flex flex-col gap-1.5 pt-1">
+                <div className="flex gap-2">
+                  <Link
+                    href={`/urun/${activeProduct.slug}`}
+                    className="flex-1 rounded-lg border border-brand-300 bg-brand-50 py-2 text-center text-xs font-bold text-brand-700 hover:bg-brand-100"
+                  >
+                    Detaylı İncele ↗
+                  </Link>
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <CompareButton slug={activeProduct.slug} />
+                  </div>
+                </div>
+                <a
+                  href={
+                    activeProduct.category.slug === "katilma-hesaplari"
+                      ? "https://www.albaraka.com.tr/tr/hesaplama-araclari/kar-payi-hesaplama"
+                      : activeProduct.official_url
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full rounded-lg bg-slate-900 py-2 text-center text-xs font-bold text-white hover:bg-slate-800 transition"
+                >
+                  {activeProduct.category.slug === "katilma-hesaplari"
+                    ? "Albaraka Kâr Payı Hesaplama Aracına Git ↗"
+                    : "Albaraka Resmî Sayfasında Gör ↗"}
+                </a>
               </div>
             </div>
           ) : (

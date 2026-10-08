@@ -4,7 +4,7 @@ import CompareButton from "@/components/CompareButton";
 import MoneyFlow from "@/components/MoneyFlow";
 import RiskBadge from "@/components/RiskBadge";
 import { getProduct } from "@/lib/api";
-import { formatDate, formatMoney, formatTerm } from "@/lib/format";
+import { formatDate, formatDateTime, formatMoney, formatTerm } from "@/lib/format";
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -66,23 +66,40 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-lg font-bold">Kaynak</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold">Resmî Kaynak & Güncellik</h2>
+          <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 border border-emerald-200/60">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            {p.verified ? "Doğrulanmış Resmî Kaynak" : "İnceleniyor"}
+          </span>
+        </div>
         <p className="mt-2 text-sm text-slate-600">
-          {p.source_label}
+          <strong>Kaynak:</strong> {p.source_label}
           <br />
-          Veri tarihi: {formatDate(p.fetched_at)} ·{" "}
-          {p.verified ? (
-            <span className="font-medium text-emerald-700">Doğrulandı</span>
-          ) : (
-            <span className="font-medium text-amber-700">Henüz doğrulanmadı</span>
-          )}
+          <strong>Son Doğrulama/Güncelleme:</strong> {formatDateTime(p.fetched_at)}
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <a href={p.source_url} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-50">
-            Kaynağı incele ↗
+          <a
+            href={
+              p.category.slug === "katilma-hesaplari"
+                ? "https://www.albaraka.com.tr/tr/hesaplama-araclari/kar-payi-hesaplama"
+                : p.official_url
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+          >
+            {p.category.slug === "katilma-hesaplari"
+              ? "Albaraka Kâr Payı Hesaplama Aracına Git ↗"
+              : "Resmî Sayfayı İncele ↗"}
           </a>
-          <a href={p.official_url} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
-            Resmî siteye git ↗
+          <a
+            href={p.source_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-50"
+          >
+            Ürün İzahnamesi / Detay ↗
           </a>
           <CompareButton slug={p.slug} />
         </div>
